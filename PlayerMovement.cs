@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
         if(horizontalInput>0.01f){
             transform.localScale=Vector3.one;
         }
-        else if(horizontalInput>-0.01f){
+        else if(horizontalInput<-0.01f){
             transform.localScale= new Vector3(-1,1,1);
         }
 
@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         anim.SetBool("Grounded",isGrounded());
 
         //wall jump
-        if(walljumpcooldown<0.2f){
+        if(walljumpcooldown>0.2f){
 
             body.velocity = new Vector2(horizontalInput*speed,body.velocity.y);
 
