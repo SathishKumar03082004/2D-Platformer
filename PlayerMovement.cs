@@ -1,4 +1,3 @@
-//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +13,11 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
     private float walljumpcooldown;
     private float horizontalInput;
+
+    [Header("Sounds")]
+    public Sound sound;
+
+    public AudioClip jumpsound;
 
     private void Awake() {
         body = GetComponent<Rigidbody2D>();
@@ -53,6 +57,10 @@ public class PlayerMovement : MonoBehaviour
 
             if(Input.GetKey(KeyCode.Space)){
                 Jump();
+
+                if(Input.GetKeyDown(KeyCode.Space) && isGrounded()){
+                    sound.Play(jumpsound);
+                }
             }
         }
         else{
@@ -62,13 +70,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump(){
         if(isGrounded()){
-            body.velocity=new Vector2(body.velocity.x,jumppower);
+            //sound.Play(jumpsound);
             anim.SetTrigger("Jump");
+            body.velocity=new Vector2(body.velocity.x,jumppower);
         }
 
         else if(onWall() && !isGrounded()){
             if(horizontalInput==0){
-                body.velocity=new Vector2(-Mathf.Sign(transform.localScale.x)*10, 0);
+                //body.velocity=new Vector2(-Mathf.Sign(transform.localScale.x)*10, 0);
                 transform.localScale=new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y,transform.localScale.z);
             }
             else{
