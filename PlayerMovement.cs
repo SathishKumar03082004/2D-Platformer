@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
         horizontalInput=Input.GetAxis("Horizontal");
 
-        //Player flip right and left movement
+
         if(horizontalInput>0.01f){
             transform.localScale=Vector3.one;
         }
@@ -38,11 +38,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        //animation 
         anim.SetBool("Run",horizontalInput!=0);
         anim.SetBool("Grounded",isGrounded());
 
-        //wall jump
         if(walljumpcooldown>0.2f){
 
             body.velocity = new Vector2(horizontalInput*speed,body.velocity.y);
@@ -70,14 +68,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump(){
         if(isGrounded()){
-            //sound.Play(jumpsound);
             anim.SetTrigger("Jump");
             body.velocity=new Vector2(body.velocity.x,jumppower);
         }
 
         else if(onWall() && !isGrounded()){
             if(horizontalInput==0){
-                //body.velocity=new Vector2(-Mathf.Sign(transform.localScale.x)*10, 0);
                 transform.localScale=new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y,transform.localScale.z);
             }
             else{

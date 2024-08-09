@@ -55,11 +55,9 @@ public class Health : MonoBehaviour
 
         for(int i=0;i<numberoffFlashes;i++){
             spriteRend.color=new Color(1,0,0,0.5f);
-            //yield return new WaitForSeconds(iframeDuration / (numberoffFlashes*2));// 2 sec/3*2 == 0.66sec
             yield return new WaitForSeconds(0.3f);
             spriteRend.color= Color.white;
             yield return new WaitForSeconds(0.3f);
-            //yield return new WaitForSeconds(iframeDuration / (numberoffFlashes*2));
         }
         Physics2D.IgnoreLayerCollision(10,11,false);
     }
